@@ -25,6 +25,18 @@ const client = redis.createClient(isProduction ? {
 
 // ----------------------------------------------------------------------------
 
+const slack = new Slack({
+  token  : process.env.SLACK_API_TOKEN,
+  channel: process.env.SLACK_CHANNEL,
+  user   : {
+    username: process.env.SLACK_USERNAME || 'izetta',
+    icon_url: process.env.SLACK_ICON_URL || '',
+  },
+  message: process.env.SLACK_MESSAGE,
+})
+
+// ----------------------------------------------------------------------------
+
 const notifyTimeZone = process.env.NOTIFY_TIMEZONE || 'Asia/Tokyo'
 const notifyTimes    = []
 const now            = moment.tz(notifyTimeZone)
@@ -62,8 +74,8 @@ co(function* () {
       yield client.setAsync(key, 1) // marked
 
       if (grass.isWithered(time)) {
-        const slack = new Slack()
-        slack.notifyWithered()
+        log('GitHub lush grassess is withered!')
+        yield slack.notifyWithered()
       }
 
       break // skip
