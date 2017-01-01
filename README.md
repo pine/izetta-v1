@@ -16,6 +16,7 @@ Cartridges
 ### 3. Add environment variables
 ```
 $ rhc env set NOTIFY_TIMES=21:00,23:00 \
+              GITHUB_USERNAME=username \
               SLACK_API_TOKEN=XXX \
               SLACK_CHANNEL=channel \
               SLACK_USERNAME=XXX \

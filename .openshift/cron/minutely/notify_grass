@@ -25,6 +25,8 @@ const client = redis.createClient(isProduction ? {
 
 // ----------------------------------------------------------------------------
 
+const githubUsername = process.env.GITHUB_USERNAME
+
 const slack = new Slack({
   token  : process.env.SLACK_API_TOKEN,
   channel: process.env.SLACK_CHANNEL,
@@ -73,7 +75,7 @@ co(function* () {
       log('Checking GitHub grasses ... ')
       yield client.setAsync(key, 1) // marked
 
-      if (grass.isWithered(time)) {
+      if (grass.isWithered(time, githubUsername)) {
         log('GitHub lush grassess is withered!')
         yield slack.notifyWithered()
       }
