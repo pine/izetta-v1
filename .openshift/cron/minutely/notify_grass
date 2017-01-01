@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+console.log('Hello');
+
+// vim: se et ts=2 sw=2 sts=2 ft=javascript :
