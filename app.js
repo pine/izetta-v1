@@ -6,9 +6,12 @@ let server = http.createServer(function (req, res) {
 
   // IMPORTANT: Your application HAS to respond to GET /health with status 200
   //            for OpenShift health monitoring
-  if (url == '/' || url == '/health') {
+  if (url == '/health') {
     res.writeHead(200);
     res.end();
+  } else if (url == '/') {
+    res.writeHead(200);
+    res.end('OK');
   } else {
     res.writeHead(404);
     res.end('Not found');
