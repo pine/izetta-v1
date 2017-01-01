@@ -75,7 +75,7 @@ co(function* () {
       log('Checking GitHub grasses ... ')
       yield client.setAsync(key, 1) // marked
 
-      if (grass.isWithered(time, githubUsername)) {
+      if (yield grass.isWithered(time, githubUsername)) {
         log('GitHub lush grassess is withered!')
         yield slack.notifyWithered()
       }
