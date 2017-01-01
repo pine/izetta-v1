@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 7.3.0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm install -g retry-cli@0.4.0
+      - git fetch --unshallow || true
+      - retry -- git push ssh://5868a5c87628e18eaf0000f5@izetta-pinemz3.rhcloud.com/~/git/izetta.git/ master
