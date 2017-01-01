@@ -4,12 +4,12 @@ const env  = process.env;
 let server = http.createServer(function (req, res) {
   // IMPORTANT: Your application HAS to respond to GET /health with status 200
   //            for OpenShift health monitoring
-  if (url == '/health') {
+  if (url == '/' || url == '/health') {
     res.writeHead(200);
     res.end();
   } else {
-      res.writeHead(404);
-      res.end('Not found');
+    res.writeHead(404);
+    res.end('Not found');
   }
 });
 
