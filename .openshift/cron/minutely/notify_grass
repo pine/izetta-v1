@@ -13,9 +13,9 @@ bluebird.promisifyAll(redis.Multi.prototype)
 const isProduction = !!process.env.OPENSHIFT_APP_NAME
 
 const client = redis.createClient(isProduction ? {
-  host    : process.env.OPENSHIFT_REDIS_DB_HOST,
-  port    : process.env.OPENSHIFT_REDIS_DB_PORT,
-  password: process.env.OPENSHIFT_REDIS_DB_PASSWORD,
+  host    : process.env.OPENSHIFT_REDIS_HOST,
+  port    : process.env.OPENSHIFT_REDIS_PORT,
+  password: process.env.REDIS_PASSWORD,
 } : {})
 
 // ----------------------------------------------------------------------------
