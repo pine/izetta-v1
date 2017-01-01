@@ -5,6 +5,8 @@
 Izetta is an perfect doctor for your GitHub lush grasses.<br>
 If they had detect withering grass a little, they would alert to me by Slack.
 
+![](screenshot.png)
+
 ## Getting started
 ### 1. Create OpenShift Account
 ### 2. Create OpenShift Application
