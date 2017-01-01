@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
-const redis    = require('redis')
 const bluebird = require('bluebird')
 const co       = require('co')
+const log      = require('fancy-log')
+const moment   = require('moment-timezone')
+const redis    = require('redis')
+
+const grass    = require('../../../lib/grass')
+const Slack    = require('../../../lib/slack')
 
 bluebird.promisifyAll(redis.RedisClient.prototype)
 bluebird.promisifyAll(redis.Multi.prototype)
@@ -20,10 +25,50 @@ const client = redis.createClient(isProduction ? {
 
 // ----------------------------------------------------------------------------
 
+const notifyTimeZone = process.env.NOTIFY_TIMEZONE || 'Asia/Tokyo'
+const notifyTimes    = []
+const now            = moment.tz(notifyTimeZone)
+
+if (process.env.NOTIFY_TIMES) {
+  const times = process.env.NOTIFY_TIMES.split(',')
+  times.forEach(time => {
+    const [ hours, minutes ] = time.split(':')
+    const tmp = moment.tz(notifyTimeZone)
+      .hours(hours)
+      .minutes(minutes)
+
+    if (tmp.isValid()) {
+      notifyTimes.push(tmp)
+
+      const yesterday = tmp.clone().subtract(1, 'day')
+      if (now.diff(yesterday, 'hours') < 12) {
+        notifyTimes.push(yesterday)
+      }
+    }
+  })
+  notifyTimes.sort((a, b) => b.diff(a)) // order by desc
+}
+
+// ----------------------------------------------------------------------------
+
 co(function* () {
-  yield client.setAsync('foo', 128)
-  const foo = yield client.getAsync('foo')
-  console.log(foo)
+  for (const time of notifyTimes) {
+    const key  = time.format('YYYY-MM-DD_HH:mm')
+    const done = yield client.getAsync(key)
+
+    if (done) { break }
+    if (now.diff(time) > 0) {
+      log('Checking GitHub grasses ... ')
+      yield client.setAsync(key, 1) // marked
+
+      if (grass.isWithered(time)) {
+        const slack = new Slack()
+        slack.notifyWithered()
+      }
+
+      break // skip
+    }
+  }
 })
   .then(
     ()  => process.exit(0),
