@@ -1,5 +1,36 @@
 #!/usr/bin/env node
+'use strict'
 
-console.log('Hello');
+const redis    = require('redis')
+const bluebird = require('bluebird')
+const co       = require('co')
+
+bluebird.promisifyAll(redis.RedisClient.prototype)
+bluebird.promisifyAll(redis.Multi.prototype)
+
+// ----------------------------------------------------------------------------
+
+const isProduction = !!process.env.OPENSHIFT_APP_NAME
+
+const client = redis.createClient(isProduction ? {
+  host    : process.env.OPENSHIFT_REDIS_DB_HOST,
+  port    : process.env.OPENSHIFT_REDIS_DB_PORT,
+  password: process.env.OPENSHIFT_REDIS_DB_PASSWORD,
+} : {})
+
+// ----------------------------------------------------------------------------
+
+co(function* () {
+  yield client.setAsync('foo', 128)
+  const foo = yield client.getAsync('foo')
+  console.log(foo)
+})
+  .then(
+    ()  => process.exit(0),
+    err => {
+      console.error(err)
+      process.exit(1)
+    }
+  )
 
 // vim: se et ts=2 sw=2 sts=2 ft=javascript :
