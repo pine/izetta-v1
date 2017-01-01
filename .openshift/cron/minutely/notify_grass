@@ -66,6 +66,7 @@ if (process.env.NOTIFY_TIMES) {
 // ----------------------------------------------------------------------------
 
 co(function* () {
+  log(slack.message)
   for (const time of notifyTimes) {
     const key  = time.format('YYYY-MM-DD_HH:mm')
     const done = yield client.getAsync(key)
