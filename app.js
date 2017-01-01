@@ -2,6 +2,8 @@ const http = require('http');
 const env  = process.env;
 
 let server = http.createServer(function (req, res) {
+  const url = req.url;
+
   // IMPORTANT: Your application HAS to respond to GET /health with status 200
   //            for OpenShift health monitoring
   if (url == '/' || url == '/health') {
