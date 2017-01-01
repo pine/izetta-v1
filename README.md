@@ -23,7 +23,7 @@ $ rhc env set NOTIFY_TIMES=21:00,23:00 \
               SLACK_CHANNEL=channel \
               SLACK_USERNAME=XXX \
               SLACK_ICON_URL=http://example.com/icons/izetta.png \
-              SLACK_MESSAGE='alert message <@channel>' -a appname
+              SLACK_MESSAGE='alert message <!channel>' -a appname
 ```
 
 ### 4. Deploy
