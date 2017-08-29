@@ -46,6 +46,8 @@ module.exports = async () => {
   log('Checking GitHub grasses ... ')
 
   const now = moment.tz(timeZone)
+  log(now)
+
   if (await grass.isWithered(now, githubUsername)) {
     log('GitHub lush grassess is withered!')
 
