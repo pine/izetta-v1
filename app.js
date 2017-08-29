@@ -1,7 +1,8 @@
 'use strict'
 
-const http = require('http')
 const cfenv = require('cfenv')
+const log = require('fancy-log')
+const http = require('http')
 
 const appEnv = cfenv.getAppEnv()
 const server = http.createServer((req, res) => {
@@ -15,7 +16,7 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(appEnv.port, '0.0.0.0', function () {
-  console.log(`server starting on ${appEnv.url}`)
+  log(`server starting on ${appEnv.url}`)
 })
 
 // ----------------------------------------------------------------------------

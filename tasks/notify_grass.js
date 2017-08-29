@@ -1,5 +1,6 @@
 'use strict'
 
+const config = require('config')
 const log = require('fancy-log')
 const moment = require('moment-timezone')
 
@@ -8,13 +9,14 @@ const Slack = require('../lib/slack')
 
 // ----------------------------------------------------------------------------
 
-const githubUsername = process.env.GITHUB_USERNAME
 const token = process.env.SLACK_API_TOKEN
-const channel = process.env.SLACK_CHANNEL
-const username = process.env.SLACK_USERNAME || 'izetta'
-const iconUrl = process.env.SLACK_ICON_URL || ''
-const message = process.env.SLACK_MESSAGE
-const notifyTimeZone = process.env.NOTIFY_TIMEZONE || 'Asia/Tokyo'
+
+const githubUsername = config.get('github.username')
+const channel = config.get('slack.channel')
+const username = config.get('slack.username')
+const iconUrl = config.get('slack.iconUrl')
+const message = config.get('slack.message')
+const timeZone = config.get('timeZone')
 
 // ----------------------------------------------------------------------------
 
@@ -43,7 +45,7 @@ if (!message) {
 module.exports = async () => {
   log('Checking GitHub grasses ... ')
 
-  const now = moment.tz(notifyTimeZone)
+  const now = moment.tz(timeZone)
   if (await grass.isWithered(now, githubUsername)) {
     log('GitHub lush grassess is withered!')
 
