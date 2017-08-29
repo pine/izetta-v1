@@ -7,6 +7,9 @@
     "start": "node app.js",
     "test": "true"
   },
+  "engines": {
+    "node": "8.4.0"
+  },
   "dependencies": {
     "@slack/client": "^3.8.1",
     "bluebird": "^3.4.7",
