@@ -1,23 +1,28 @@
-const http = require('http');
-const env  = process.env;
+'use strict'
 
-let server = http.createServer(function (req, res) {
-  const url = req.url;
+const cfenv = require('cfenv')
+const log = require('fancy-log')
+const http = require('http')
 
-  // IMPORTANT: Your application HAS to respond to GET /health with status 200
-  //            for OpenShift health monitoring
-  if (url == '/health') {
-    res.writeHead(200);
-    res.end();
-  } else if (url == '/') {
-    res.writeHead(200);
-    res.end('OK');
+const appEnv = cfenv.getAppEnv()
+const server = http.createServer((req, res) => {
+  if (req.url === '/' || req.url === '/health' || req.url === '/healthcheck') {
+    res.writeHead(200)
+    res.end('OK')
   } else {
-    res.writeHead(404);
-    res.end('Not found');
+    res.writeHead(404)
+    res.end('Not Found')
   }
-});
+})
 
-server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function () {
-  console.log(`Application worker ${process.pid} started...`);
-});
+server.listen(appEnv.port, '0.0.0.0', function () {
+  log(`server starting on ${appEnv.url}`)
+})
+
+// ----------------------------------------------------------------------------
+
+const CronJob = require('cron').CronJob
+const notifyGrass = require('./tasks/notify_grass')
+
+// new CronJob('11 00 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
+notifyGrass()
