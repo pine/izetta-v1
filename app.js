@@ -24,6 +24,6 @@ server.listen(appEnv.port, '0.0.0.0', function () {
 const CronJob = require('cron').CronJob
 const notifyGrass = require('./tasks/notify_grass')
 
-new CronJob('21 00 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
-new CronJob('23 00 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
-new CronJob('23 30 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
+new CronJob('30 21 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
+new CronJob('00 23 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
+new CronJob('30 23 * * *', () => notifyGrass(), null, true, 'Asia/Tokyo')
