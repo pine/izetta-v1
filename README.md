@@ -8,20 +8,15 @@ If they had detect withering grass a little, they would alert to me by Slack.
 ![](screenshot.png)
 
 ## Getting started
-### 1. Create Bluemix Account
-### 2. Create Bluemix Application
+### 1. Create Heroku Account
+### 2. Create Heroku Application
 ### 3. Add environment variables
 
 ```
-$ cf set-env YOUR_APP_NAME SLACK_API_TOKEN XXX
+$ heroku config:set SLACK_API_TOKEN=XXX
 ```
 
 ### 4. Deploy
-
-```
-$ cf login -u username@example.com
-$ cf push
-```
 
 ## License
 MIT License
