@@ -19,4 +19,4 @@ $ heroku config:set SLACK_API_TOKEN=XXX
 ### 4. Deploy
 
 ## License
-MIT License
+MIT &copy; Pine Mizune
