@@ -1,4 +1,4 @@
-# Izetta [![CircleCI branch](https://img.shields.io/circleci/project/github/pine/Izetta/master.svg?style=flat-square)](https://circleci.com/gh/pine/Izetta) [![David](https://img.shields.io/david/pine/Izetta.svg?style=flat-square)](https://david-dm.org/pine/Izetta) [![David](https://img.shields.io/david/dev/pine/Izetta.svg?style=flat-square)](https://david-dm.org/pine/Izetta) [![Greenkeeper badge](https://badges.greenkeeper.io/pine/Izetta.svg)](https://greenkeeper.io/)
+# Izetta  [![CircleCI branch](https://img.shields.io/circleci/project/github/pine/Izetta/master.svg)](https://circleci.com/gh/pine/Izetta) [![David](https://img.shields.io/david/pine/Izetta.svg)](https://david-dm.org/pine/Izetta) [![David](https://img.shields.io/david/dev/pine/Izetta.svg)](https://david-dm.org/pine/Izetta) [![Greenkeeper badge](https://badges.greenkeeper.io/pine/Izetta.svg)](https://greenkeeper.io/)
 
 > Keep your lawn grasses lush green forever
 
