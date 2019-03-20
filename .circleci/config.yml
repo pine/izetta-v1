@@ -31,7 +31,10 @@ jobs:
       - deploy:
           name: Deploy Master to Heroku
           command: |
-            if [ "${CIRCLE_BRANCH}" == 'master' ]; then
-              bash .circleci/setup-heroku.sh
+            if [ "$CIRCLE_BRANCH" == 'master' ]; then
+              ./.circleci/setup-heroku.sh
+              ./.circleci/setup-retry.sh
+
+              heroku git:remote --app pinemz-izetta
               git push -f heroku master
             fi
