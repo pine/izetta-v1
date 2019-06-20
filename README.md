@@ -1,6 +1,5 @@
-*The repository is obsoleted. Please see a new version's izetta.*
-
-https://github.com/pine/izetta
+*The repository is obsoleted. Please see a new version's izetta.*<br>
+*https://github.com/pine/izetta*
 
 ---
 
